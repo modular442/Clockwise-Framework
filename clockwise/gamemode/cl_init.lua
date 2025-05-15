@@ -10,3 +10,5 @@ else
     ---@class Clockwise: GM
     Clockwise = GM
 end
+
+include('clockwise/framework/_clockwise.lua')

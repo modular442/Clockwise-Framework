@@ -84,6 +84,8 @@
 		end)
 ]==]
 
+if not CFG.blockedModules.fsl then return end
+
 require("mysqloo")
 if (mysqloo.VERSION != "9" || !mysqloo.MINOR_VERSION || tonumber(mysqloo.MINOR_VERSION) < 1) then
 	MsgC(Color(255, 0, 0), "You are using an outdated mysqloo version\n")
