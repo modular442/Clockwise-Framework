@@ -1,4 +1,5 @@
--- © 2025 modular442. All rights reserved.
+-- © 2025 modular442 (Modular Content). All rights reserved.
+
 local isLoad = Clockwise and true
 if isLoad then
     print('[Clockwise] fsr')

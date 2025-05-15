@@ -1,4 +1,4 @@
--- © 2025 modular442. All rights reserved.
+-- © 2025 modular442 (Modular Content). All rights reserved.
 require('mysqloo')
 
 local isLoad = Clockwise and true
