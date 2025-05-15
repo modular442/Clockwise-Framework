@@ -9,7 +9,7 @@
     },
     "Lua.runtime.nonstandardSymbol": [
         "continue",
-        	"&&",
+        "&&",
 	    "||",
 	    "!=",
 	    "!",
