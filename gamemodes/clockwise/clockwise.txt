@@ -1,6 +1,6 @@
 "clockwise"
 {
-	"title"      "Zephyr HL2 RP"
+	"title"      "Clockwise: HL2 RP"
 	"version"    "1.0"
 	"base"       "sandbox"
 	"menusystem" "1"
