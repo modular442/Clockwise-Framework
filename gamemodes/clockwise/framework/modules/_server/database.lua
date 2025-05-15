@@ -8,16 +8,16 @@ cw.database = cw.database or {}
 --- При успешном подключении запускает периодический heartbeat для проверки статуса.
 --- При потере соединения пытается переподключиться с задержкой.
 function cw.database.reconnectDB()
-    cw.logger.createCustomColorMsg('DB', CFG.colors.warning, 'Connecting...')
+    cw.logger.createCustomColorMsg('Database', CFG.colors.warning, 'Connecting...')
     local config = CFG.db
     if not config then
-        cw.logger.createCustomColorMsg('DB', CFG.colors.error, 'DB config missing!')
+        cw.logger.createCustomColorMsg('Database', CFG.colors.error, 'DB config missing!')
         return
     end
     local db = mysqloo.CreateDatabase(config.host, config.user, config.pass, config.main, config.port, config.socket)
     --- Вызывается при успешном подключении к БД.
     function db:onConnected()
-        cw.logger.createCustomColorMsg('DB', CFG.colors.complete, 'Connected.')
+        cw.logger.createCustomColorMsg('Database', CFG.colors.complete, 'Connected.')
         cw.db = db
         -- Создаём таймер heartbeat, который каждые 30 секунд проверяет состояние соединения
         timer.Create('cw.db.heartbeat', 30, 0, function()
@@ -37,8 +37,8 @@ function cw.database.reconnectDB()
     --- Вызывается при неудачной попытке подключения к БД.
     --- @param data string @ Ошибка подключения
     function db:onConnectionFailed(data)
-        cw.logger.createCustomColorMsg('DB', CFG.colors.error, 'Connection failed: %s', data)
-        cw.logger.createCustomColorMsg('DB', CFG.colors.warning, 'Reconnecting in 30 seconds...')
+        cw.logger.createCustomColorMsg('Database', CFG.colors.error, 'Connection failed: %s', data)
+        cw.logger.createCustomColorMsg('Database', CFG.colors.warning, 'Reconnecting in 30 seconds...')
         -- Удаляем heartbeat, чтобы не плодить таймеры
         timer.Remove('cw.db.heartbeat')
         -- Запускаем повторную попытку подключения через 30 секунд

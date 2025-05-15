@@ -92,21 +92,13 @@ function cw.include.modules(path, priority)
 
     local function loadItem(fullPath)
         local fileName = fullPath:match("([^/\\]+)%.lua$") or ""
-
-        if string.StartsWith(fileName, "cl_") then
+        
+        if string.find(fullPath, "/_client/") or string.StartsWith(fileName, "cl_") or fileName == "client" then
             cw.client(fullPath:gsub("%.lua$", ""))
-        elseif string.StartsWith(fileName, "sv_") then
+        elseif string.find(fullPath, "/_server/") or string.StartsWith(fileName, "sv_") or fileName == "server" then
             cw.server(fullPath:gsub("%.lua$", ""))
-        elseif string.StartsWith(fileName, "sh_") then
-            cw.shared(fullPath:gsub("%.lua$", ""))
-        elseif fileName == "client" then
-            cw.client(fullPath:gsub("%.lua$", ""))
-        elseif fileName == "server" then
-            cw.server(fullPath:gsub("%.lua$", ""))
-        elseif fileName == "shared" then
-            cw.shared(fullPath:gsub("%.lua$", ""))
         else
-            -- По умолчанию считаем shared
+            -- Всё остальное — shared
             cw.shared(fullPath:gsub("%.lua$", ""))
         end
     end

@@ -37,13 +37,15 @@ function cw.shared(path)
     return path
 end
 
-cw.shared('clockwise/modules/include')
-cw.include.libraries('clockwise/libraries')
-cw.include.modules('clockwise/modules', {
+cw.shared('clockwise/framework/modules/include')
+cw.include.libraries('clockwise/framework/libraries')
+cw.include.modules('clockwise/framework/modules', {
+    '!cfg',
+    '!logger',
 	'!include',
+    '!hook',
 	'!_server',
 	'!_client',
-	'cfg',
 	'*',
 })
 
