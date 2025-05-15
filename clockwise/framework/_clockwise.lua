@@ -47,8 +47,14 @@ cw.include.modules('clockwise/modules', {
 	'*',
 })
 
+---@vararg ...
 cw.hook.On('clockwise.loaded', 'clockwise.loaded', function (...)
-    cw.logger.complete('Фреймворк инициализирован.')
+    if cw.hook then
+        cw.logger.info('Используется версия %s.', CFG.version)
+        cw.logger.complete('Фреймворк успешно инициализирован.')
+    else
+        cw.logger.error('Фреймворк был инициализирован неверно!')
+    end
 end)
 
 cw.hook.Trigger('clockwise.loaded')
