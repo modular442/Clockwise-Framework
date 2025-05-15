@@ -5,6 +5,8 @@
 local startTime = os.clock()
 local msgColor = Color(0, 255, 100, 255)
 
+DeriveGamemode('sandbox')
+
 local isReload = Clockwise and true
 if isReload then
 	MsgC(msgColor, "[Clockwise] Change detected! Refreshing...\n")
@@ -14,6 +16,11 @@ else
     ---@class Clockwise: GM
 	Clockwise = GM
 end
+
+Clockwise.Name = 'Clockwise: HL2 RP'
+Clockwise.Author = "Modular"
+Clockwise.Email = "modular442@gmail.com"
+Clockwise.Website = "https://discord.gg/Cenb5sSMvB"
 
 include('clockwise/framework/_clockwise.lua')
 
