@@ -1,3 +1,5 @@
+CFG.dev = true
+
 --[[
     DATABASE --]]
 
