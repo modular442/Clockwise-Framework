@@ -4,13 +4,19 @@
     ],
     "Lua.runtime.version": "LuaJIT",
     "Lua.runtime.special": {
-        "include": "dofile",
-        "IncludeCS": "dofile"
+	    "include": "require",
+	    "IncludeCS": "require"
     },
     "Lua.runtime.nonstandardSymbol": [
-        "continue"
+        "continue",
+        	"&&",
+	    "||",
+	    "!=",
+	    "!",
+	    "//"
     ],
     "Lua.diagnostics.disable": [
+        "undefined-global",
         "duplicate-set-field"
     ],
     "Lua.workspace.checkThirdParty": false
