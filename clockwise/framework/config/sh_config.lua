@@ -3,3 +3,4 @@
     Something that you will never be. --]]
 
 CFG.dev = false
+CFG.blockedModules = {}

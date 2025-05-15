@@ -38,7 +38,14 @@ function cw.shared(path)
 end
 
 cw.shared('clockwise/modules/include')
-cw.include.directory('clockwise/modules')
+cw.include.libraries('clockwise/libraries')
+cw.include.modules('clockwise/modules', {
+	'!include',
+	'!_server',
+	'!_client',
+	'cfg',
+	'*',
+})
 
 cw.hook.On('clockwise.loaded', 'clockwise.loaded', function (...)
     cw.logger.complete('Фреймворк инициализирован.')
