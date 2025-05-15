@@ -3,7 +3,7 @@
     Something that you will never be. --]]
 
 CFG.version = 1.0
-CFG.dev = false
+CFG.dev = true
 CFG.blockedModules = {}
 
 CFG.colors = {
