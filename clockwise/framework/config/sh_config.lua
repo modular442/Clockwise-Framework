@@ -4,6 +4,11 @@
 
 CFG.version = 1
 CFG.dev = false
-CFG.blockedModules = {
-    fsl = true,
+CFG.blockedModules = {}
+
+CFG.colors = {
+    info = Color(122, 198, 255),
+    warning = Color(243, 187, 27),
+    error = Color(255, 100, 100),
+    complete = Color(0, 255, 100, 255),
 }
