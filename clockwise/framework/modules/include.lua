@@ -1,3 +1,7 @@
+--[[
+    © 2025 modular442 (Modular Content). All rights reserved. 
+    Something that you will never be. --]]
+
 ---@class cw.include
 ---@field prefixed fun(path: string): string @ Импортирует все cl_/sv_/sh_ файлы из директории и возвращает путь
 ---@field directory fun(path: string): string @ Рекурсивно импортирует все lua-файлы из директории и подпапок и возвращает путь

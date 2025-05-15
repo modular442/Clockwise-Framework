@@ -1,3 +1,7 @@
+--[[
+    © 2025 modular442 (Modular Content). All rights reserved. 
+    Something that you will never be. --]]
+
 ---@class cw
 ---@field client fun(path: string): string @ Импортирует файл только на клиенте и возвращает путь
 ---@field server fun(path: string): string @ Импортирует файл только на сервере и возвращает путь

@@ -1,3 +1,7 @@
+--[[
+    © 2025 modular442 (Modular Content). All rights reserved. 
+    Something that you will never be. --]]
+
 ---@class cw.hook
 ---@field On fun(eventName: string, id: string, callback: fun(...): any) @ Добавляет обработчик события
 ---@field Off fun(eventName: string, id: string) @ Убирает обработчик события

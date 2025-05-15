@@ -1,4 +1,6 @@
--- © 2025 modular442 (Modular Content). All rights reserved.
+--[[
+    © 2025 modular442 (Modular Content). All rights reserved. 
+    Something that you will never be. --]]
 
 local isLoad = Clockwise and true
 if isLoad then
