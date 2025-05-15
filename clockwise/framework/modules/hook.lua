@@ -26,7 +26,7 @@ function cw.hook.On(hookName, id, func)
             for _, f in pairs(hooks[hookName]) do
                 local ok, err = pcall(f, ...)
                 if not ok then
-                    cw.logger.error("Ошибка в хук-функции '%s': %s", hookName, err)
+                    cw.logger.createCustomColorMsg('cw.hook', CFG.colors.error, "Ошибка в хук-функции '%s': %s", hookName, err)
                 end
             end
         end)
@@ -72,7 +72,7 @@ function cw.hook.Trigger(hookName, ...)
             if ok then
                 table.insert(results, ret)
             else
-                cw.logger.error("Ошибка при триггере хука '%s': %s", hookName, ret)
+                cw.logger.createCustomColorMsg('cw.hook', CFG.colors.error, "Ошибка при триггере хука '%s': %s", hookName, ret)
             end
         end
     end
