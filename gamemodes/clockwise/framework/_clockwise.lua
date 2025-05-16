@@ -51,7 +51,7 @@ cw.include.modules('clockwise/framework/modules', {
 
 ---@vararg ...
 cw.hook.On('clockwise.loaded', 'clockwise.loaded', function (...)
-    cw.include.libraries('clockwise/framework/scripts')
+    cw.include.stack('clockwise/framework/scripts', {'!sh_', '!sv_', '!cl_', '*'})
     if cw.hook and cw.characters then
         cw.logger.info('Используется версия %s.', CFG.version)
         cw.logger.complete('Фреймворк успешно инициализирован.')

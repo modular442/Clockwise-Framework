@@ -66,7 +66,6 @@ function cw.include.libraries(path)
     return path
 end
 
-
 ---Импортирует все файлы и папки из указанной директории согласно приоритетам,
 ---автоматически определяя, как их загружать: cl_ - клиент, sv_ - сервер, sh_ или без префикса - shared.
 ---Также учитывает файлы с именами client.lua, server.lua, shared.lua для определения типа.
@@ -130,6 +129,92 @@ function cw.include.modules(path, priority)
     end
 
     -- 2. Потом грузим всё остальное, если '*' есть в приоритете
+    if table.HasValue(priority, '*') then
+        for _, name in ipairs(files) do
+            if not loaded[name] then
+                loadName(name)
+            end
+        end
+        for _, name in ipairs(dirs) do
+            if not loaded[name] then
+                loadName(name)
+            end
+        end
+    end
+
+    return path
+end
+
+---Загружает сначала файлы без префиксов как shared, затем по приоритету остальные (cl_, sv_, sh_).
+---@param path string Путь до директории, относительно gamemodes/
+---@param priority string[] Приоритет загрузки (например, {"!cl_", "!sv_", "!sh_", "*"})
+---@return string Возвращает тот же путь
+function cw.include.stack(path, priority)
+    local files, dirs = file.Find(path .. "/*", "LUA")
+    local loaded = {}
+
+    local function matchesPriority(name, pattern)
+        if pattern:sub(1,1) == '!' then
+            local prefix = pattern:sub(2)
+            return name:sub(1, #prefix) == prefix
+        elseif pattern == '*' then
+            return false
+        else
+            return name == pattern
+        end
+    end
+
+    local function loadItem(fullPath)
+        local fileName = fullPath:match("([^/\\]+)%.lua$") or ""
+        
+        if string.find(fullPath, "/_client/") or string.StartsWith(fileName, "cl_") or fileName == "client" then
+            cw.client(fullPath:gsub("%.lua$", ""))
+        elseif string.find(fullPath, "/_server/") or string.StartsWith(fileName, "sv_") or fileName == "server" then
+            cw.server(fullPath:gsub("%.lua$", ""))
+        else
+            cw.shared(fullPath:gsub("%.lua$", ""))
+        end
+    end
+
+    local function loadName(name)
+        local fullPath = path .. "/" .. name
+        if file.IsDir(fullPath, "LUA") then
+            cw.include.stack(fullPath, priority)
+        else
+            loadItem(fullPath)
+        end
+        loaded[name] = true
+    end
+
+    -- 1. Сначала грузим все файлы без префиксов (shared)
+    for _, name in ipairs(files) do
+        if not (string.StartsWith(name, "cl_") or string.StartsWith(name, "sv_") or string.StartsWith(name, "sh_")) then
+            loadName(name)
+        end
+    end
+    for _, name in ipairs(dirs) do
+        if not (string.StartsWith(name, "cl_") or string.StartsWith(name, "sv_") or string.StartsWith(name, "sh_")) then
+            loadName(name)
+        end
+    end
+
+    -- 2. Потом грузим по приоритету (как в modules)
+    for _, pattern in ipairs(priority) do
+        if pattern ~= '*' then
+            for _, name in ipairs(files) do
+                if not loaded[name] and matchesPriority(name, pattern) then
+                    loadName(name)
+                end
+            end
+            for _, name in ipairs(dirs) do
+                if not loaded[name] and matchesPriority(name, pattern) then
+                    loadName(name)
+                end
+            end
+        end
+    end
+
+    -- 3. Если есть '*', то грузим оставшиеся
     if table.HasValue(priority, '*') then
         for _, name in ipairs(files) do
             if not loaded[name] then
