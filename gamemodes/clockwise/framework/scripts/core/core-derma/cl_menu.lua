@@ -2,6 +2,16 @@
 
 if not cw.derma.menu then return end
 
+cw.hook.On("ScoreboardShow", "ShowMenu", function(...)
+    cw.derma.menu.showMenu()
+    return true
+end)
+
+cw.hook.On("ScoreboardHide", "HideMenu", function(...)
+    cw.derma.menu.hideMenu()
+    return true
+end)
+
 local frameRef
 
 function cw.derma.menu.showMenu()
@@ -12,7 +22,7 @@ function cw.derma.menu.showMenu()
 
     ---@type DFrame
     local frame = vgui.Create('DFrame')
-    frame:SetPos(50, 50)
+    frame:SetPos(ScrW() / 2, ScrH() / 2)
     frame:SetSize(300, 250)
     frame:SetTitle('Меню игрового режима')
     frame:SetDraggable(false)
@@ -25,7 +35,7 @@ function cw.derma.menu.showMenu()
     button:SetPos(25, 50)
     button:SetSize(250, 30)
     button.DoClick = function()
-        cw.logger.dmsg(LocalPlayer():Nick())
+        cw.logger.msg(LocalPlayer():Nick())
     end
 
     frameRef = frame

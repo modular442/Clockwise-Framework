@@ -24,9 +24,13 @@ function cw.hook.On(hookName, id, func)
         hook.Add(hookName, "cw_hook_"..hookName, function(...)
             -- При вызове нативного хука запускаем все обработчики
             for _, f in pairs(hooks[hookName]) do
-                local ok, err = pcall(f, ...)
+                local ok, ret = pcall(f, ...)
                 if not ok then
-                    cw.logger.createCustomColorMsg('cw.hook', CFG.colors.error, "Ошибка в хук-функции '%s': %s", hookName, err)
+                    cw.logger.createCustomColorMsg('cw.hook', CFG.colors.error, "Ошибка в хук-функции '%s': %s", hookName, ret)
+                else
+                    if ret ~= nil then
+                        return ret -- возвращаем любое значение, которое вернул обработчик, но не nil
+                    end
                 end
             end
         end)
